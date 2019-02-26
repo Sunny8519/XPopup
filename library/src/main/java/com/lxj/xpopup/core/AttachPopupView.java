@@ -50,6 +50,7 @@ public abstract class AttachPopupView extends BasePopupView {
 
     protected boolean isShowUp;
     boolean isShowLeft;
+
     @Override
     protected void initPopupContent() {
         super.initPopupContent();
@@ -67,9 +68,9 @@ public abstract class AttachPopupView extends BasePopupView {
     /**
      * 执行附着逻辑
      */
-    protected void doAttach(){
+    protected void doAttach() {
         // 弹窗显示的位置不能超越Window高度
-        float maxY = XPopupUtils.getWindowHeight(getContext()) ;
+        float maxY = XPopupUtils.getWindowHeight(getContext());
         float maxX = 0; // 显示在右边时候的最大值
 
         float translationX = 0, translationY = 0;
@@ -78,15 +79,15 @@ public abstract class AttachPopupView extends BasePopupView {
             // 依附于指定点
             maxX = Math.max(popupInfo.touchPoint.x - getPopupContentView().getMeasuredWidth(), 0);
             // 尽量优先放在下方，当不够的时候在显示在上方
-            isShowUp = (popupInfo.touchPoint.y + getPopupContentView().getMeasuredHeight()) > maxY ;
+            isShowUp = (popupInfo.touchPoint.y + getPopupContentView().getMeasuredHeight()) > maxY;
             isShowLeft = popupInfo.touchPoint.x < XPopupUtils.getWindowWidth(getContext()) / 2;
 
             if (isShowUp) {
                 // 应显示在point上方
                 // translationX: 在左边就和atView左边对齐，在右边就和其右边对齐
-                translationX = (isShowLeft ?popupInfo.touchPoint.x : maxX) + defaultOffsetX;
+                translationX = (isShowLeft ? popupInfo.touchPoint.x : maxX) + defaultOffsetX;
                 translationY = popupInfo.touchPoint.y - getPopupContentView().getMeasuredHeight() - defaultOffsetY;
-            }else {
+            } else {
                 translationX = (isShowLeft ? popupInfo.touchPoint.x : maxX) + defaultOffsetX;
                 translationY = popupInfo.touchPoint.y + defaultOffsetY;
             }
@@ -102,7 +103,7 @@ public abstract class AttachPopupView extends BasePopupView {
             int centerX = (rect.left + rect.right) / 2;
 
             // 尽量优先放在下方，当不够的时候在显示在上方
-            isShowUp = (rect.bottom + getPopupContentView().getMeasuredHeight()) > maxY ; // 不能正好贴着底边
+            isShowUp = (rect.bottom + getPopupContentView().getMeasuredHeight()) > maxY; // 不能正好贴着底边
             isShowLeft = centerX < XPopupUtils.getWindowWidth(getContext()) / 2;
 
             if (isShowUp) {
@@ -110,7 +111,7 @@ public abstract class AttachPopupView extends BasePopupView {
                 // translationX: 在左边就和atView左边对齐，在右边就和其右边对齐
                 translationX = (isShowLeft ? rect.left : maxX) + defaultOffsetX;
                 translationY = rect.top - getPopupContentView().getMeasuredHeight() - defaultOffsetY;
-            }else {
+            } else {
                 translationX = (isShowLeft ? rect.left : maxX) + defaultOffsetX;
                 translationY = rect.bottom + defaultOffsetY;
             }
